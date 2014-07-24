@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
     def tweets
         @tweets = Array.new
         
-        @client.search("#sdcc AND photo", :result_type => "recent").take(20).each do |tweet|
+        @client.search("#sdcc AND photo +exclude:retweets", :result_type => "recent").take(20).each do |tweet|
           @tweets.push tweet
         end
         
