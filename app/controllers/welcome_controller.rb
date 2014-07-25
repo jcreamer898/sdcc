@@ -37,6 +37,25 @@ class WelcomeController < ApplicationController
             end
         end
 
+        FlickRaw.api_key="2ddad46edede61633126a2a5ba14ed8d"
+        FlickRaw.shared_secret="8e1feee7136867fd"
+
+        
+        flickrImages = flickr.photos.search(text: "sdcc", privacy_filter: 1, extras: "owner_name, date_upload").take(20)
+
+        flickrImages = flickrImages.map do |image|
+            { 
+                image_url: "https://farm#{image.farm}.staticflickr.com/#{image.server}/#{image.id}_#{image.secret}_m.jpg",
+                text: image.title,
+                timestamp: image.dateupload.to_i,
+                link: "https://www.flickr.com/photos/#{image.owner}/#{image.id}",
+                source: "flickr",
+                user: image.ownername
+            }
+        end
+
+        flickrImages.each { |img| @images << img }
+
         @images.sort! do |x,y|
             x[:timestamp] <=> y[:timestamp]
         end
@@ -49,6 +68,28 @@ class WelcomeController < ApplicationController
 
     # get 'welcome/sandbox'
     def sandbox
+        FlickRaw.api_key="2ddad46edede61633126a2a5ba14ed8d"
+        FlickRaw.shared_secret="8e1feee7136867fd"
+
+        
+        @images = flickr.photos.search(text: "sdcc", privacy_filter: 1, extras: "owner_name, date_upload").take(100)
+
+        @images = @images.map do |image|
+            { 
+                image_url: "https://farm#{image.farm}.staticflickr.com/#{image.server}/#{image.id}_#{image.secret}_m.jpg",
+                text: image.title,
+                timestamp: image.dateupload.to_i,
+                link: "https://www.flickr.com/photos/#{image.owner}/#{image.id}",
+                source: "flickr",
+                user: image.ownername
+            }
+        end
+
+
+        respond_to do |format|
+            format.html
+            format.json { render json: @images }
+        end
     end
 
     # get 'welcome/tweets'
