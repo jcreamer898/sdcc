@@ -1,9 +1,14 @@
 <h1>Comic Con Image Stream</h1>
 
 <div class="row">
+<% $i = 0 %>
 <% @images.each do |tweet| %>
-    <div class="col-xs-6 col-md-3">
-        <a href="<%= tweet[:link] %>" class="thumbnail">
+    <% if $i > 0 && $i % 4 == 0 %>
+        </div><div class="row">
+    <% end %>
+
+    <div class="col-xs-6 col-md-3" id="img-<%= $i %>">
+        <a href="<%= tweet[:link] %>" class="thumbnail" target="_blank">
             <img src="<%= tweet[:image_url] %>" alt="...">
         </a>
 
@@ -16,5 +21,7 @@
             <p><%= tweet[:text] %></p>
         </div>
     </div>
+
+    <% $i += 1 %>
 <% end %>
 </div>
