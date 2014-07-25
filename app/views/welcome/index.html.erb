@@ -1,1 +1,16 @@
-Hello There
+<h1>Comic Con Image Stream</h1>
+
+<div class="row">
+<% @images.each do |tweet| %>
+    <div class="col-xs-6 col-md-3">
+        <a href="<%= tweet[:link] %>" class="thumbnail">
+            <img src="<%= tweet[:image_url] %>" alt="...">
+        </a>
+
+        <div class="caption">
+            <h3><i class="fa fa-<%= tweet[:source] %>"></i> <%= tweet[:user] %></h3>
+            <p><%= tweet[:text] %></p>
+        </div>
+    </div>
+<% end %>
+</div>
