@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
 
     # get 'welcome/index'
     def index
-        recent_media = Instagram.tag_recent_media('sdcc')
+        recent_media = Instagram.tag_recent_media('nycc')
         @images = Array.new
 
         recent_media.map do |image|
@@ -22,7 +22,7 @@ class WelcomeController < ApplicationController
             }
         end
 
-        tweets = @client.search("#sdcc AND photo +exclude:retweets", :result_type => "recent").take(20)
+        tweets = @client.search("#nycc AND photo +exclude:retweets", :result_type => "recent").take(20)
 
         tweets.each do |tweet|
             if tweet.media.count > 0 && tweet.media[0].media_uri?
@@ -41,7 +41,7 @@ class WelcomeController < ApplicationController
         FlickRaw.shared_secret="8e1feee7136867fd"
 
         
-        flickrImages = flickr.photos.search(text: "sdcc", privacy_filter: 1, extras: "owner_name, date_upload").take(20)
+        flickrImages = flickr.photos.search(text: "nycc", privacy_filter: 1, extras: "owner_name, date_upload").take(20)
 
         flickrImages = flickrImages.map do |image|
             { 
@@ -72,7 +72,7 @@ class WelcomeController < ApplicationController
         FlickRaw.shared_secret="8e1feee7136867fd"
 
         
-        @images = flickr.photos.search(text: "sdcc", privacy_filter: 1, extras: "owner_name, date_upload").take(100)
+        @images = flickr.photos.search(text: "nycc", privacy_filter: 1, extras: "owner_name, date_upload").take(100)
 
         @images = @images.map do |image|
             { 
@@ -94,7 +94,7 @@ class WelcomeController < ApplicationController
 
     # get 'welcome/tweets'
     def tweets
-        tweets = @client.search("#sdcc AND photo +exclude:retweets", :result_type => "recent").take(20)
+        tweets = @client.search("#nycc AND photo +exclude:retweets", :result_type => "recent").take(20)
 
         @tweets = Array.new
 
@@ -119,7 +119,7 @@ class WelcomeController < ApplicationController
     # get 'welcome/instagram'
     def instagram
 
-        @tags = Instagram.tag_recent_media('sdcc')
+        @tags = Instagram.tag_recent_media('nycc')
 
         respond_to do |format|
             format.html { render 'tweets' }
