@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
-  get '/:tag'
+  get ':tag' => 'welcome#index'
   get 'welcome/sandbox'
   get 'welcome/tweets'
   get 'welcome/instagram'
