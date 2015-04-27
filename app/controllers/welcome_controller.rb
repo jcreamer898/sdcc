@@ -3,7 +3,9 @@ class WelcomeController < ApplicationController
 
     # get 'welcome/index'
     def index
-        recent_media = Instagram.tag_recent_media('nycc')
+        tag = params[:tag]
+        tag ||= 'sdcc'
+        recent_media = Instagram.tag_recent_media(tag)
         @images = Array.new
 
         recent_media.map do |image|
