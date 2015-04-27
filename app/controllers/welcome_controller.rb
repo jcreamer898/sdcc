@@ -24,7 +24,7 @@ class WelcomeController < ApplicationController
             }
         end
 
-        tweets = @client.search("#nycc AND photo +exclude:retweets", :result_type => "recent").take(20)
+        tweets = @client.search("#{tag} AND photo +exclude:retweets", :result_type => "recent").take(20)
 
         tweets.each do |tweet|
             if tweet.media.count > 0 && tweet.media[0].media_uri?
@@ -43,7 +43,7 @@ class WelcomeController < ApplicationController
         FlickRaw.shared_secret="8e1feee7136867fd"
 
         
-        flickrImages = flickr.photos.search(text: "nycc", privacy_filter: 1, extras: "owner_name, date_upload").take(20)
+        flickrImages = flickr.photos.search(text: "#{tag}", privacy_filter: 1, extras: "owner_name, date_upload").take(20)
 
         flickrImages = flickrImages.map do |image|
             { 
